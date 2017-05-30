@@ -5,6 +5,7 @@
   "dependencies": {
     "core": "../core",
     "react": "^15.5.4",
+    "react-blockies": "^1.1.1",
     "react-dom": "^15.5.4"
   },
   "devDependencies": {

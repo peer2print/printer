@@ -8,6 +8,7 @@ var Production = loadContract("Production")*/
 import ProductionCreator from "./components/ProductionCreator.js"
 import ProductionList from "./components/ProductionList.js"
 import RegistrySetter from "./components/RegistrySetter.js"
+import Identicon from "react-blockies"
 
 class App extends Component {
 	constructor(props) {
@@ -29,6 +30,10 @@ class App extends Component {
 				<div className="App-header">
 					<img src={logo} className="App-logo" alt="logo" />
 					<h2>Peer2Print Printer</h2>
+				</div>
+				<div>
+					<Identicon seed={regStr} />
+					<br />
 					Current registry: {regStr}
 				</div>
 				<ProductionCreator addProd={this.addProd.bind(this)} />
