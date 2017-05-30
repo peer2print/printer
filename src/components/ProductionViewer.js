@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Identicon from "react-blockies"
 
 var web3 = new (require('web3'))()
 
@@ -24,6 +25,8 @@ export default class ProductionViewer extends Component {
 	}
 	render() { return (
 		<p>
+			<Identicon seed={this.state.address} />
+			<br />
 			Address:
 			{this.state.address}
 			<br />
