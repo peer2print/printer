@@ -20,7 +20,7 @@ export default class ProductionCreator extends Component {
 		</form>
     )}
 	handleChange(event) {
-		this.setState({address: event.target.address})
+		this.setState({address: event.target.value})
 	}
 	createRegistry(event) {
 		event.preventDefault();
@@ -45,10 +45,9 @@ export default class ProductionCreator extends Component {
 		ProductionRegistry.defaults({
 			from: "0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1",
 			gas: 4712388,
-			gasPrice: 100000000000,
-			address: this.state.address
+			gasPrice: 100000000000
 		})
-		ProductionRegistry.deployed().then((instance) => {
+		ProductionRegistry.at(this.state.address).then((instance) => {
             alert("set registry" + instance.address)
 			console.log(instance)
 			this.props.setRegistry(instance)
