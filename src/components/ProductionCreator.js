@@ -29,6 +29,11 @@ export default class ProductionCreator extends Component {
 	}
 	createProduction(event) {
 		event.preventDefault();
+		if (this.props.registry == null)
+		{
+			alert("missing registry")
+			return
+		}
 		const loadContract = require("core").loadContract
 		var Production = loadContract("Production")
 		Production.defaults({
@@ -40,6 +45,9 @@ export default class ProductionCreator extends Component {
             alert("created " + this.state.desc + ", price: " + this.state.price)
 			console.log(instance)
 			this.props.addProd(instance)
+			this.props.registry.addProduction(instance.address).then(() => {
+				alert("added to registry")
+			})
         })
 	}
 }

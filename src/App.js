@@ -36,7 +36,8 @@ class App extends Component {
 					<br />
 					Current registry: {regStr}
 				</div>
-				<ProductionCreator addProd={this.addProd.bind(this)} />
+				Hello
+				<ProductionCreator addProd={this.addProd.bind(this)} registry={this.state.registry} />
 				<br />
 				<ProductionList prodList={this.state.prodList} registry={this.state.registry} />
 				<br />
