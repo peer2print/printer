@@ -12,7 +12,7 @@ function applyConstraints(Production, prodAddr, constraints, from)
 			return (production.buyer().then((productionBuyer) => {
 				if (constraints.buyer === true && from === productionBuyer)
 					return production
-				else if (from !== productionBuyer)
+				else if (constraints.buyer === false &&  from !== productionBuyer)
 					return production
 				else
 					return null
@@ -44,14 +44,20 @@ function fetchProductions(registry, addProductions, from, constraints) {
 }
 
 export default class RegistryViewer extends Component {
+	updateProductions(registry) {
+		this.setState({productionList: []})
+		fetchProductions(registry || this.props.registry, this.addProductions.bind(this),
+				this.props.from, this.props.constraints)
+	}
+	componentWillMount() {
+		this.updateProductions()
+	}
+	componentWillReceiveProps(nextProps) {
+	    if(this.props.registry !== nextProps.registry)
+	           this.updateProductions(nextProps.registry);
+	}
 	addProductions(prods) {
 		this.setState({productionList: this.state.productionList.concat(prods)})
-	}
-	constructor(props) {
-		super(props)
-		this.state = {productionList: []}
-		fetchProductions(this.props.registry, this.addProductions.bind(this),
-				this.props.from, this.props.constraints)
 	}
 	render() {
 		return <ProductionList productionList={this.state.productionList} />

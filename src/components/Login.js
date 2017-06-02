@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import Balance from './Balance.js'
+
 export default class Login extends Component {
 	constructor(props) {
 		super(props)
@@ -15,6 +17,7 @@ export default class Login extends Component {
           </label>
   		  <br />
           <input type="submit" value="Set Address" />
+		  {this.state.address && <Balance address={this.state.address} />}
         </form>
     )}
 	setAddress(event) {
