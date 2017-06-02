@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import setContractDefaults from "./setContractDefaults.js"
+const loadContract = require("core").loadContract
 
 export default class ProductionCreator extends Component {
 	constructor(props) {
@@ -23,33 +25,19 @@ export default class ProductionCreator extends Component {
 		this.setState({address: event.target.value})
 	}
 	createRegistry(event) {
-		event.preventDefault();
-		const loadContract = require("core").loadContract
+		event.preventDefault()
 		var ProductionRegistry = loadContract("ProductionRegistry")
-		ProductionRegistry.defaults({
-			from: "0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1",
-			gas: 4712388,
-			gasPrice: 100000000000
-		})
+		setContractDefaults(ProductionRegistry, {from: this.props.from})
 		ProductionRegistry.new().then((instance) => {
-            alert("created registry" + instance.address)
-			console.log(instance)
 			this.props.setRegistry(instance)
 			this.setState({address: instance.address})
         })
 	}
 	setRegistry(event) {
-		event.preventDefault();
-		const loadContract = require("core").loadContract
+		event.preventDefault()
 		var ProductionRegistry = loadContract("ProductionRegistry")
-		ProductionRegistry.defaults({
-			from: "0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1",
-			gas: 4712388,
-			gasPrice: 100000000000
-		})
+		setContractDefaults(ProductionRegistry, {from: this.props.from})
 		ProductionRegistry.at(this.state.address).then((instance) => {
-            alert("set registry" + instance.address)
-			console.log(instance)
 			this.props.setRegistry(instance)
 			this.setState({address: instance.address})
         })
