@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Identicon from "react-blockies"
-
 var web3 = new (require('web3'))()
 
 export default class ProductionViewer extends Component {
@@ -17,10 +16,10 @@ export default class ProductionViewer extends Component {
 	}
 	constructor(props) {
 		super(props);
-		this.state = {address: props.prod.address, description: "...", price: 0}
-		props.prod.description().then(this.setDescription.bind(this))
-		props.prod.price().then(this.setPrice.bind(this))
-		props.prod.buyer().then(this.setBuyer.bind(this))
+		this.state = {address: props.production.address, description: "...", price: 0}
+		props.production.description().then(this.setDescription.bind(this))
+		props.production.price().then(this.setPrice.bind(this))
+		props.production.buyer().then(this.setBuyer.bind(this))
 	}
 	render() { return (
 		<p>

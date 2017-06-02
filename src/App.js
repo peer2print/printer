@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
-/*const loadContract = require("./loadContract.js")
-
-var Production = loadContract("Production")*/
-
 import ProductionCreator from "./components/ProductionCreator.js"
 import ProductionList from "./components/ProductionList.js"
 import RegistrySetter from "./components/RegistrySetter.js"
@@ -12,13 +8,18 @@ import RegistryViewer from "./components/RegistryViewer.js"
 import Login from "./components/Login.js"
 import Identicon from "react-blockies"
 
-class App extends Component {
+// You can use these addresses if you run `testrpc -d`
+// Registry: 0xe78a0f7e598cc8b0bb87894b0f60dd2a88d6a8ab
+// Bob: 0x90f8bf6a479f320ead074411a4b0e7944ea8c9c1
+// Alice: 0xffcf8fdee72ac11b5c542428b35eef5769c409f0
+
+export default class App extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {prodList: [], registry: null, address: null}
+		this.state = {productionList: [], registry: null, address: null}
 	}
-	addProd(prod) {
-		this.setState({prodList: this.state.prodList.concat([prod])})
+	addProduction(prod) {
+		this.setState({productionList: this.state.productionList.concat([prod])})
 	}
 	setRegistry(reg) {
 		this.setState({registry: reg})
@@ -27,8 +28,8 @@ class App extends Component {
 		this.setState({address: addr})
 	}
 	render() {
-		var regStr = this.state.registry ? this.state.registry.address : "none"
-		var addrStr = this.state.address ? this.state.address : "none"
+		var registryString = this.state.registry ? this.state.registry.address : "none"
+		var addressString = this.state.address ? this.state.address : "none"
 		return (
 			<div className="App">
 				<div className="App-header">
@@ -38,9 +39,9 @@ class App extends Component {
 				<hr />
 				<div>
 					USER
-					<Identicon seed={addrStr} />
+					<Identicon seed={addressString} />
 					<Login setAddress={this.setAddress.bind(this)}/>
-					Current address: {addrStr}
+					Current address: {addressString}
 				</div>
 				<hr />
 				<div>
@@ -50,9 +51,9 @@ class App extends Component {
 				<hr />
 				<div>
 					REGISTRY
-					<Identicon seed={regStr} />
+					<Identicon seed={registryString} />
 					<RegistrySetter setRegistry={this.setRegistry.bind(this)} from={this.state.address} />
-					Current registry: {regStr}
+					Current registry: {registryString}
 				<hr />
 				</div>
 				<div>
@@ -62,13 +63,11 @@ class App extends Component {
 				<hr />
 				<div>
 					CREATE PROD
-					<ProductionCreator addProd={this.addProd.bind(this)} registry={this.state.registry} from={this.state.address} />
-					<ProductionList prodList={this.state.prodList} from={this.state.address} />
+					<ProductionCreator addProduction={this.addProduction.bind(this)} registry={this.state.registry} from={this.state.address} />
+					<ProductionList productionList={this.state.productionList} from={this.state.address} />
 				</div>
 				<hr />
 			</div>
 		)
 	}
 }
-
-export default App

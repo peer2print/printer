@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 
-
 export default class Login extends Component {
-
 	constructor(props) {
 		super(props)
 		this.state = {address: ""}
@@ -15,7 +13,7 @@ export default class Login extends Component {
             Address:
             <input type="text" name="address" value={this.state.address} onChange={this.handleChange} />
           </label>
-  		<br />
+  		  <br />
           <input type="submit" value="Set Address" />
         </form>
     )}

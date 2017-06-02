@@ -40,7 +40,7 @@ export default class ProductionCreator extends Component {
 		var Production = loadContract("Production")
 		setContractDefaults(Production, {from: this.props.from})
 		Production.new(this.state.desc, this.state.price).then((instance) => {
-			this.props.addProd(instance)
+			this.props.addProduction(instance)
 			this.props.registry.addProduction(instance.address)
         })
 	}

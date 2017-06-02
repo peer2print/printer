@@ -1,12 +1,11 @@
 import React from 'react'
-
 import ProductionViewer from "./ProductionViewer.js"
 
 export default function ProductionList(props) {
-	const prods = props.prodList;
-	const listItems = prods.map((prod) => {
-			if (prod)
-				return <li key={prod.address}><ProductionViewer prod={prod} /></li>
+	const productions = props.productionList;
+	const listItems = productions.map((production) => {
+			if (production)
+				return <li key={production.address}><ProductionViewer production={production} /></li>
 			else
 				return null
 		}
