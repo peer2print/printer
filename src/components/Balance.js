@@ -11,10 +11,10 @@ export default class Balance extends Component {
 		this.updateBalance = this.updateBalance.bind(this)
 		web3.eth.filter('latest').watch(this.updateBalance)
 	}
-	updateBalance(address) {
+	updateBalance(address = null) {
 		var balance = "error"
 		try {
-			balance = web3.eth.getBalance(address || this.props.address).toNumber()
+			balance = web3.fromWei(web3.eth.getBalance(address || this.props.address).toNumber())
 		} catch (exception) {
 			console.log("failed to update balance: "+exception)
 		}
@@ -22,7 +22,7 @@ export default class Balance extends Component {
 	}
 	render() { return (
 		<div>
-			Balance: {web3.fromWei(this.state.balance)} Ether
+			Balance: {this.state.balance} Ether
 		</div>
     )}
 	componentWilMount() {

@@ -44,17 +44,16 @@ function fetchProductions(registry, addProductions, from, constraints) {
 }
 
 export default class RegistryViewer extends Component {
-	updateProductions(registry) {
+	updateProductions(registry = this.props.registry, from = this.props.from) {
 		this.setState({productionList: []})
-		fetchProductions(registry || this.props.registry, this.addProductions.bind(this),
-				this.props.from, this.props.constraints)
+		fetchProductions(registry, this.addProductions.bind(this), from, this.props.constraints)
 	}
 	componentWillMount() {
 		this.updateProductions()
 	}
 	componentWillReceiveProps(nextProps) {
-	    if(this.props.registry !== nextProps.registry)
-	           this.updateProductions(nextProps.registry);
+	    if(this.props.registry !== nextProps.registry || this.props.from !== nextProps.from)
+	           this.updateProductions(nextProps.registry, nextProps.from);
 	}
 	addProductions(prods) {
 		this.setState({productionList: this.state.productionList.concat(prods)})
