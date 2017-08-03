@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ProductionList from "./ProductionList.js"
-import setContractDefaults from "./setContractDefaults.js"
+import setContractDefaults from "../utils/setContractDefaults.js"
 const loadContract = require("core").loadContract
 
 function applyConstraints(Production, prodAddr, constraints, from)
