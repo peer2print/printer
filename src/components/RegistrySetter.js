@@ -1,5 +1,4 @@
 import React from "react";
-import CurrentBalance from "../containers/CurrentBalance";
 
 const bindHandleChange = setRegistry => {
   return event => {

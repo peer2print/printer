@@ -1,5 +1,4 @@
 import React from "react";
-import CurrentBalance from "../containers/CurrentBalance";
 
 const bindHandleChange = setUser => {
   return event => {
@@ -19,7 +18,6 @@ const Login = ({ user, setUser }) => {
           onChange={bindHandleChange(setUser)}
         />
       </label>
-      {user && <CurrentBalance />}
     </form>
   );
 };

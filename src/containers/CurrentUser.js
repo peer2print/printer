@@ -3,9 +3,7 @@ import User from "../components/User";
 import { setUser } from "../actions";
 
 const mapStateToProps = state => {
-  return {
-    user: state.user
-  };
+  return state.user;
 };
 
 const mapDispatchToProps = dispatch => ({

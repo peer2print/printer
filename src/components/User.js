@@ -1,13 +1,14 @@
 import React from "react";
 import Identicon from "react-blockies";
+import Balance from "./Balance";
+import Login from "./Login";
 
-const User = ({ user, setUser, children }) => {
+const User = props => {
   return (
     <div>
-      <div>
-        <Identicon seed={user} />
-      </div>
-      {React.cloneElement(children, { user: user, setUser: setUser })}
+      {props.address && !props.error && <Identicon seed={props.address} />}
+      <Login user={props.address} setUser={props.setUser} />
+      {props.error || <Balance balance={props.balance} />}
     </div>
   );
 };

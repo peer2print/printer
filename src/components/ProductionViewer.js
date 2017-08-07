@@ -1,49 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 import Identicon from "react-blockies";
-var web3 = new (require("web3"))();
 
-export default class ProductionViewer extends Component {
-  setDescription(desc) {
-    if (typeof desc !== String) desc = web3.toAscii(desc);
-    this.setState({ description: desc });
-  }
-  setPrice(p) {
-    this.setState({ price: p });
-  }
-  setBuyer(b) {
-    this.setState({ buyer: b });
-  }
-  constructor(props) {
-    super(props);
-    this.state = {
-      address: props.production.address,
-      description: "...",
-      price: 0
-    };
-    props.production.description().then(this.setDescription.bind(this));
-    props.production.price().then(this.setPrice.bind(this));
-    props.production.buyer().then(this.setBuyer.bind(this));
-  }
-  render() {
-    return (
-      <p>
-        <Identicon seed={this.state.address} />
-        <br />
-        Address:
-        {this.state.address}
-        <br />
-        Description:
-        {this.state.description}
-        <br />
-        Price:
-        {this.state.price.toString()}
-        ETH
-        <br />
-        Buyer:
-        {this.state.buyer}
-        <br />
-        <button label="Accept request" />
-      </p>
-    );
-  }
-}
+export default ({ production }) =>
+  <p>
+    {production.address && <Identicon seed={production.address} />}
+    <br />
+    Address:
+    {production.address}
+    <br />
+    Description:
+    {production.description}
+    <br />
+    Price:
+    {production.price && production.price.toString()}
+    ETH
+    <br />
+    Buyer:
+    {production.buyer}
+  </p>;

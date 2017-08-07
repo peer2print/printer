@@ -1,16 +1,14 @@
 import React from "react";
 import Identicon from "react-blockies";
 
-const Registry = ({ registry, setRegistry, children }) => {
+const Registry = props => {
   return (
     <div>
-      <div>
-        <Identicon seed={registry} />
-      </div>
-      {React.cloneElement(children, {
-        registry: registry,
-        setRegistry: setRegistry
-      })}
+      {props.registry && <Identicon seed={props.registry} />}
+      {React.Children.map(props.children, child =>
+        React.cloneElement(child, { ...props, children: [] })
+      )}
+      {props.error || "Valid registry"}
     </div>
   );
 };

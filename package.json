@@ -12,10 +12,11 @@
     "redux": "^3.7.2",
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.2.0",
-    "web3": "^1.0.0-beta.13"
+    "web3": "^0.20.1"
   },
   "devDependencies": {
-    "react-scripts": "1.0.7"
+    "react-scripts": "1.0.7",
+    "redux-logger": "^3.0.6"
   },
   "scripts": {
     "start": "react-scripts start",
