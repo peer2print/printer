@@ -31,8 +31,8 @@ export default ({
         name="price"
         value={price}
         onChange={event => setPrice(event.target.value)}
-      />
-      ETH
+      />{" "}
+      Wei
     </label>
     <br />
     <input type="submit" value="Create Production" />

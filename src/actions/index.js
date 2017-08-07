@@ -10,5 +10,9 @@ export {
   setUserError,
   createNewProduction,
   setNewProductionPrice,
-  setNewProductionDescription
+  setNewProductionDescription,
+  approveRequest,
+  payCollateral,
+  finishProduct,
+  confirmExchange
 } from "./user";

@@ -24,7 +24,6 @@ export const createNewProduction = newProduction => (dispatch, getState) => {
       getState().user.newProduction.price
     )
     .then(productionInstance => {
-      console.log("Creating production");
       const registry = getState().registry.address;
       Contract("ProductionRegistry", { from: user })
         .at(registry)
@@ -39,6 +38,52 @@ export const createNewProduction = newProduction => (dispatch, getState) => {
         setProductionCreationError("Failed to create production: " + error)
       )
     );
+};
+
+export const payCollateral = (requestAddress, amount) => (
+  dispatch,
+  getState
+) => {
+  if (getState().user.error) return;
+  const user = getState().user.address;
+  Contract("Production")
+    .at(requestAddress)
+    .then(productionInstance =>
+      productionInstance.sendCollateral({ from: user, value: amount })
+    );
+};
+
+export const finishProduct = requestAddress => (dispatch, getState) => {
+  if (getState().user.error) return;
+  const user = getState().user.address;
+  Contract("Production")
+    .at(requestAddress)
+    .then(productionInstance =>
+      productionInstance.productFinished({ from: user })
+    );
+};
+
+export const confirmExchange = (requestAddress, amount) => (
+  dispatch,
+  getState
+) => {
+  console.log("trying to pay " + amount + " wei");
+  if (getState().user.error) return;
+  const user = getState().user.address;
+  Contract("Production").at(requestAddress).then(productionInstance =>
+    productionInstance.productExchanged({
+      from: user,
+      value: amount
+    })
+  );
+};
+
+export const approveRequest = requestAddress => (dispatch, getState) => {
+  if (getState().user.error) return;
+  const user = getState().user.address;
+  Contract("Production", { from: user })
+    .at(requestAddress)
+    .then(productionInstance => productionInstance.approveRequest());
 };
 
 export const setNewProductionPrice = price => ({

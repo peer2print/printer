@@ -1,4 +1,5 @@
 import { Contract, web3 } from "../utils";
+import convertProductionContractToObject from "./convertProductionContractToObject";
 
 export const setRegistry = registry => (dispatch, getState) => {
   dispatch(setRegistryAction(registry));
@@ -66,21 +67,6 @@ const setRegistryUpdateError = error => ({
   type: "SET_REGISTRY_UPDATE_ERROR",
   error
 });
-
-const convertProductionContractToObject = productionInstance => {
-  const keys = ["description", "price", "buyer", "seller"];
-  return Promise.all(
-    keys.map(key => productionInstance[key].call())
-  ).then(attributes => {
-    const object = {};
-    for (let i = 0; i < keys.length; i++) object[keys[i]] = attributes[i];
-    /*specific code*/
-    object.address = productionInstance.address;
-    object.description = web3.toUtf8(object.description);
-    /*end of specific code*/
-    return object;
-  });
-};
 
 export const updateRegistry = () => (dispatch, getState) => {
   if (getState().registry.error) return;
