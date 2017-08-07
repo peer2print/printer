@@ -87,7 +87,7 @@ export const updateRegistry = () => (dispatch, getState) => {
   const user = getState().user.address;
   Contract("ProductionRegistry", { from: user })
     .at(getState().registry.address)
-    .then(registry => {
+    .then(registry =>
       registry.getProductionsCount
         .call()
         .then(size => {
@@ -109,11 +109,18 @@ export const updateRegistry = () => (dispatch, getState) => {
             convertProductionContractToObject(
               productionInstance
             ).then(productionObject => {
-              dispatch(setProduction(productionObject));
-              return productionObject;
+              if (
+                JSON.stringify(productionObject) !==
+                JSON.stringify(getState().productions[productionObject.address])
+              )
+                dispatch(setProduction(productionObject));
             })
           )
-        );
+        )
+    )
+    .then(() => {
+      if (getState().registryUpdateError)
+        dispatch(setRegistryUpdateError(null));
     })
     .catch(error =>
       dispatch(

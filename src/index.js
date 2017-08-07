@@ -1,11 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
-import "./index.css";
-import store from "./store";
+import { compose, createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
+import persistState from "redux-localstorage";
 import { Provider } from "react-redux";
+
+import registerServiceWorker from "./registerServiceWorker";
+import App from "./App";
+import reducer from "./reducers";
 import { updateRegistry } from "./actions";
+
+import "./index.css";
+
+const enhancer = compose(
+  applyMiddleware(thunk),
+  applyMiddleware(logger),
+  persistState(/*paths, config*/)
+);
+
+const store = createStore(reducer, enhancer);
 
 ReactDOM.render(
   <Provider store={store}>

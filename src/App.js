@@ -27,8 +27,8 @@ export default () =>
     </CurrentRegistry>
     <h2>NEW REQUEST</h2>
     <NewProduction />
-    <h2>OWN PRODUCTIONS</h2>
+    <h2>OWN REQUESTS</h2>
     <OwnProductions />
-    <h2>OTHERS PRODUCTIONS</h2>
+    <h2>OTHERS REQUESTS</h2>
     <OthersProductions />
   </div>;
