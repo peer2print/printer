@@ -40,61 +40,27 @@ export const createNewProduction = newProduction => (dispatch, getState) => {
     );
 };
 
-export const payCollateral = (requestAddress, amount) => (
+const thunkCallOnProduction = (functionName, address, value) => (
   dispatch,
   getState
 ) => {
   if (getState().user.error) return;
   const user = getState().user.address;
   Contract("Production")
-    .at(requestAddress)
+    .at(address)
     .then(productionInstance =>
-      productionInstance.sendCollateral({ from: user, value: amount })
+      productionInstance[functionName]({ from: user, value: value })
     );
 };
 
-export const finishProduct = requestAddress => (dispatch, getState) => {
-  if (getState().user.error) return;
-  const user = getState().user.address;
-  Contract("Production")
-    .at(requestAddress)
-    .then(productionInstance =>
-      productionInstance.productFinished({ from: user })
-    );
-};
-
-export const confirmExchange = (requestAddress, amount) => (
-  dispatch,
-  getState
-) => {
-  console.log("trying to pay " + amount + " wei");
-  if (getState().user.error) return;
-  const user = getState().user.address;
-  Contract("Production").at(requestAddress).then(productionInstance =>
-    productionInstance.productExchanged({
-      from: user,
-      value: amount
-    })
-  );
-};
-
-export const approveRequest = requestAddress => (dispatch, getState) => {
-  if (getState().user.error) return;
-  const user = getState().user.address;
-  Contract("Production", { from: user })
-    .at(requestAddress)
-    .then(productionInstance => productionInstance.approveRequest());
-};
-
-export const setNewProductionPrice = price => ({
-  type: "SET_NEW_PRODUCTION_PRICE",
-  price
-});
-
-export const setNewProductionDescription = description => ({
-  type: "SET_NEW_PRODUCTION_DESCRIPTION",
-  description
-});
+export const approveRequest = (address, amount) =>
+  thunkCallOnProduction("approveRequest", address, amount);
+export const payCollateral = (address, amount) =>
+  thunkCallOnProduction("sendCollateral", address, amount);
+export const finishProduct = address =>
+  thunkCallOnProduction("productFinished", address);
+export const confirmExchange = (address, amount) =>
+  thunkCallOnProduction("productExchanged", address, amount);
 
 export const setUser = user => {
   return dispatch => {
@@ -104,30 +70,25 @@ export const setUser = user => {
   };
 };
 
-const setUserAction = address => {
+const basicAction = (type, argName) => arg => {
   return {
-    type: "SET_USER",
-    address
+    type: type,
+    [argName]: arg
   };
 };
 
-const setProductionCreationError = error => {
-  return {
-    type: "SET_PRODUCTION_CREATION_ERROR",
-    error
-  };
-};
-
-const setUserError = error => {
-  return {
-    type: "SET_USER_ERROR",
-    error
-  };
-};
-
-const setBalance = balance => {
-  return {
-    type: "SET_BALANCE",
-    balance
-  };
-};
+const setUserAction = basicAction("SET_USER", "address");
+const setProductionCreationError = basicAction(
+  "SET_PRODUCTION_CREATION_ERROR",
+  "error"
+);
+const setUserError = basicAction("SET_USER_ERROR", "error");
+const setBalance = basicAction("SET_BALANCE", "balance");
+export const setNewProductionPrice = basicAction(
+  "SET_NEW_PRODUCTION_PRICE",
+  "price"
+);
+export const setNewProductionDescription = basicAction(
+  "SET_NEW_PRODUCTION_DESCRIPTION",
+  "description"
+);
