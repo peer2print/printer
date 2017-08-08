@@ -73,7 +73,7 @@ export default ({
     <br />
     {user === production.buyer &&
       <div>
-        Paid: {production.balance} Wei
+        Paid: {production.balance.toString()} Wei
       </div>}
     {production.state === RequestSent &&
       user !== production.buyer &&

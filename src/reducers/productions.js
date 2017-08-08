@@ -5,6 +5,11 @@ const productions = (state = {}, action) => {
         ...state,
         [action.production.address]: action.production
       };
+    case "REMOVE_PRODUCTION":
+      return Object.keys(state).reduce((result, key) => {
+        if (key === action.address) result[key] = state[key];
+        return result;
+      }, {});
     default:
       return state;
   }

@@ -68,6 +68,20 @@ const setRegistryUpdateError = error => ({
   error
 });
 
+export const cleanRegistry = () => (dispatch, getState) => {
+  const Production = Contract("Production");
+  Object.keys(getState().productions).forEach(address =>
+    Production.at(address)
+      .then()
+      .catch(() => dispatch(removeProduction(address)))
+  );
+};
+
+const removeProduction = address => ({
+  type: "REMOVE_PRODUCTION",
+  address
+});
+
 export const updateRegistry = () => (dispatch, getState) => {
   if (getState().registry.error) return;
   const user = getState().user.address;

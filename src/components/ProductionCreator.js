@@ -29,7 +29,7 @@ export default ({
       <input
         type="number"
         name="price"
-        value={price}
+        value={price || 0}
         onChange={event => setPrice(event.target.value)}
       />{" "}
       Wei

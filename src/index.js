@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import registerServiceWorker from "./registerServiceWorker";
 import App from "./App";
 import reducer from "./reducers";
-import { updateRegistry } from "./actions";
+import { updateRegistry, cleanRegistry } from "./actions";
 
 import "./index.css";
 
@@ -30,3 +30,4 @@ ReactDOM.render(
 registerServiceWorker();
 
 setInterval(() => store.dispatch(updateRegistry()), 5000);
+setInterval(() => store.dispatch(cleanRegistry()), 5000);

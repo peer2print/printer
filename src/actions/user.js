@@ -23,16 +23,15 @@ export const createNewProduction = newProduction => (dispatch, getState) => {
       getState().user.newProduction.description,
       getState().user.newProduction.price
     )
-    .then(productionInstance => {
-      const registry = getState().registry.address;
+    .then(productionInstance =>
       Contract("ProductionRegistry", { from: user })
-        .at(registry)
-        .then(registryInstance => {
+        .at(getState().registry.address)
+        .then(registryInstance =>
           registryInstance
             .addProduction(productionInstance.address)
-            .then(() => dispatch(setProductionCreationError(null)));
-        });
-    })
+            .then(() => dispatch(setProductionCreationError(null)))
+        )
+    )
     .catch(error =>
       dispatch(
         setProductionCreationError("Failed to create production: " + error)

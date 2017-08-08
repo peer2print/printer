@@ -2,7 +2,8 @@ export {
   createRegistry,
   setRegistry,
   checkRegistry,
-  updateRegistry
+  updateRegistry,
+  cleanRegistry
 } from "./registry";
 
 export {
