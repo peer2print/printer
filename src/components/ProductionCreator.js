@@ -1,5 +1,8 @@
 import React from "react";
 
+const descriptionLabel = "newProductionDescription";
+const priceLabel = "newProductionPrice";
+
 export default ({
   description,
   price,
@@ -14,27 +17,33 @@ export default ({
       createProduction();
     }}
   >
-    <label>
-      Description:
+    <div className="form-group">
+      <label for={descriptionLabel} className="control-label">
+        Description:
+      </label>
       <input
+        className="form-control"
+        id={descriptionLabel}
         type="text"
         name="desc"
         value={description}
         onChange={event => setDescription(event.target.value)}
       />
-    </label>
-    <br />
-    <label>
-      Price:
+    </div>
+    <div className="form-group">
+      <label for={priceLabel}>Price:</label>
       <input
+        className="form-control-inline"
+        id={priceLabel}
         type="number"
         name="price"
         value={price || 0}
         onChange={event => setPrice(event.target.value)}
       />{" "}
       Wei
-    </label>
-    <br />
-    <input type="submit" value="Create Production" />
+    </div>
+    <button className="btn btn-default" type="submit">
+      Create Production
+    </button>
     {error}
   </form>;

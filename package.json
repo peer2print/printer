@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "core": "../core",
     "react": "^15.5.4",
     "react-blockies": "^1.1.1",

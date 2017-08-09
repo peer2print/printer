@@ -16,7 +16,7 @@ import NewProduction from "./containers/NewProduction";
 // Alice: 0xffcf8fdee72ac11b5c542428b35eef5769c409f0
 
 export default () =>
-  <div className="App">
+  <div className="App container-fluid">
     <h1>Peer2Print</h1>
     <h2>CURRENT USER</h2>
     <CurrentUser />

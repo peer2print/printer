@@ -11,6 +11,7 @@ import App from "./App";
 import reducer from "./reducers";
 import { updateRegistry, cleanRegistry } from "./actions";
 
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 
 const enhancer = compose(
