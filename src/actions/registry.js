@@ -9,7 +9,7 @@ export const setRegistry = registry => (dispatch, getState) => {
 export const checkRegistry = () => (dispatch, getState) => {
   const registry = getState().registry.address;
   if (!web3.isAddress(registry)) {
-    dispatch(setRegistryError("Invalid registry address"));
+    dispatch(setRegistryError("Invalid address"));
     return;
   }
   const user = getState().user.address;
@@ -25,7 +25,7 @@ export const checkRegistry = () => (dispatch, getState) => {
       dispatch(setRegistryError(null));
     })
     .catch(error => {
-      dispatch(setRegistryError("" + error));
+      dispatch(setRegistryError("No valid registry at this address: " + error));
     });
 };
 
@@ -48,9 +48,10 @@ export const createRegistry = () => (dispatch, getState) => {
       dispatch(setRegistryAction(registryInstance.address));
       dispatch(setRegistryError(null));
     })
-    .catch(error =>
-      dispatch(setRegistryError("Failed to create registry: " + error))
-    );
+    .catch(error => {
+      console.log(error);
+      dispatch(setRegistryError("Failed to create registry: " + error));
+    });
 };
 
 const setRegistryError = message => ({

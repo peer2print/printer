@@ -18,7 +18,7 @@ export default ({
     }}
   >
     <div className="form-group">
-      <label for={descriptionLabel} className="control-label">
+      <label htmlFor={descriptionLabel} className="control-label">
         Description:
       </label>
       <input
@@ -31,7 +31,7 @@ export default ({
       />
     </div>
     <div className="form-group">
-      <label for={priceLabel}>Price:</label>
+      <label htmlFor={priceLabel}>Price:</label>
       <input
         className="form-control-inline"
         id={priceLabel}

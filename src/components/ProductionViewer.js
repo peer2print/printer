@@ -41,7 +41,9 @@ export default ({
 const RequestSentView = ({ user, production, approveRequest }) =>
   user !== production.buyer &&
   <div>
-    <button onClick={approveRequest}>Approve request</button>
+    <button className="btn btn-default" onClick={approveRequest}>
+      Approve request
+    </button>
   </div>;
 
 const RequestApprovedView = ({ user, production, payCollateral }) =>
@@ -51,7 +53,9 @@ const RequestApprovedView = ({ user, production, payCollateral }) =>
       : "Seller: " + production.seller}
     {user === production.buyer &&
       <div>
-        <button onClick={payCollateral}>Pay collateral</button>
+        <button className="btn btn-default" onClick={payCollateral}>
+          Pay collateral
+        </button>
       </div>}
   </div>;
 
@@ -81,11 +85,15 @@ const StateView = ({
       "Waiting for the product to be finished"}
     {production.state === CollateralPaid &&
       user === production.seller &&
-      <button onClick={finishProduct}>Set product as finished</button>}
+      <button className="btn btn-default" onClick={finishProduct}>
+        Set product as finished
+      </button>}
     {production.state === ProductFinished &&
       userIsBuyerOrSeller(user, production) &&
       !userConfirmedExchange(user, production) &&
-      <button onClick={confirmExchange}>Confirm exchange</button>}
+      <button className="btn btn-default" onClick={confirmExchange}>
+        Confirm exchange
+      </button>}
     {production.state === ProductFinished &&
       user === production.buyer &&
       production.exchangeConfirmations[seller] &&
@@ -101,44 +109,30 @@ const RequestApproved = "1";
 const CollateralPaid = "2";
 const ProductFinished = "3";
 
-const stateToString = state => {
-  switch (state) {
-    case RequestSent:
-      return "Request sent";
-    case RequestApproved:
-      return "Waiting for collateral";
-    case CollateralPaid:
-      return "Collateral paid";
-    case ProductFinished:
-      return "Product finished";
-    case "4":
-      return "Product exchanged";
-    case "5":
-      return "Seller paid";
-    default:
-      return "Unknown";
-  }
+const stateToStringMap = {
+  [RequestSent]: "Request sent",
+  [RequestApproved]: "Waiting for collateral",
+  [CollateralPaid]: "Collateral paid",
+  [ProductFinished]: "Product finished",
+  "4": "Product exchanged",
+  "5": "Seller paid"
 };
+
+const stateToString = state =>
+  state in stateToStringMap ? stateToStringMap[state] : "Unknown state";
 
 const buyer = 0;
 const seller = 1;
 
-const userIsBuyerOrSeller = (userAddress, production) => {
-  if (userAddress === production.buyer || userAddress === production.seller)
-    return true;
-  else return false;
-};
+const userIsBuyerOrSeller = (userAddress, production) =>
+  userAddress === production.buyer || userAddress === production.seller
+    ? true
+    : false;
 
-const userConfirmedExchange = (userAddress, production) => {
-  if (
-    userAddress === production.buyer &&
-    production.exchangeConfirmations[buyer]
-  )
-    return true;
-  else if (
-    userAddress === production.seller &&
-    production.exchangeConfirmations[seller]
-  )
-    return true;
-  else return false;
-};
+const userConfirmedExchange = (userAddress, production) =>
+  (userAddress === production.buyer &&
+    production.exchangeConfirmations[buyer]) ||
+  (userAddress === production.seller &&
+    production.exchangeConfirmations[seller])
+    ? true
+    : false;

@@ -16,19 +16,31 @@ import NewProduction from "./containers/NewProduction";
 // Alice: 0xffcf8fdee72ac11b5c542428b35eef5769c409f0
 
 export default () =>
-  <div className="App container-fluid">
-    <h1>Peer2Print</h1>
-    <h2>CURRENT USER</h2>
-    <CurrentUser />
-    <h2>REGISTRY</h2>
-    <CurrentRegistry>
-      <RegistrySetter />
-      <RegistryCreator />
-    </CurrentRegistry>
-    <h2>NEW REQUEST</h2>
-    <NewProduction />
-    <h2>OWN REQUESTS</h2>
-    <OwnProductions />
-    <h2>OTHERS REQUESTS</h2>
-    <OthersProductions />
+  <div className="app">
+    <div className="header module">
+      <h1>Peer2Print</h1>
+    </div>
+    <div className="user top-module module">
+      <h2>CURRENT USER</h2>
+      <CurrentUser />
+    </div>
+    <div className="new-request top-module module">
+      <h2>NEW REQUEST</h2>
+      <NewProduction />
+    </div>
+    <div className="registry top-module module">
+      <h2>REGISTRY</h2>
+      <CurrentRegistry>
+        <RegistrySetter />
+        <RegistryCreator />
+      </CurrentRegistry>
+    </div>
+    <div className="own-requests bottom-module module">
+      <h2>OWN REQUESTS</h2>
+      <OwnProductions />
+    </div>
+    <div className="others-requests bottom-module module">
+      <h2>OTHERS REQUESTS</h2>
+      <OthersProductions />
+    </div>
   </div>;

@@ -14,7 +14,7 @@ export default function ProductionList({
     const production = productions[address];
     if (production)
       return (
-        <li key={address}>
+        <li className="list-group-item" key={address}>
           <ProductionViewer
             production={production}
             user={user}
@@ -36,7 +36,7 @@ export default function ProductionList({
   return (
     <div>
       {updateError || "Synced"}
-      <ul>
+      <ul className="list-group">
         {listItems}
       </ul>
     </div>

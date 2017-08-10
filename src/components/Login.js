@@ -6,20 +6,17 @@ const bindHandleChange = setUser => {
   };
 };
 
-const Login = ({ user, setUser }) => {
-  return (
-    <form>
-      <label>
-        Address:
-        <input
-          type="text"
-          name="address"
-          value={user}
-          onChange={bindHandleChange(setUser)}
-        />
-      </label>
-    </form>
-  );
-};
+const Login = ({ user, setUser }) =>
+  <form>
+    <label>Address</label>
+    <br />
+    <input
+      className="address-input"
+      type="text"
+      name="address"
+      value={user}
+      onChange={bindHandleChange(setUser)}
+    />
+  </form>;
 
 export default Login;

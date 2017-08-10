@@ -1,3 +1,4 @@
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { compose, createStore, applyMiddleware } from "redux";
@@ -11,7 +12,6 @@ import App from "./App";
 import reducer from "./reducers";
 import { updateRegistry, cleanRegistry } from "./actions";
 
-import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 
 const enhancer = compose(

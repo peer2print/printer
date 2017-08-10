@@ -7,7 +7,8 @@ export default ({ createRegistry }) =>
       createRegistry();
     }}
   >
+    <br />
     <label>
-      <button>Create registry</button>
+      <button className="btn btn-default">Create registry</button>
     </label>
   </form>;
